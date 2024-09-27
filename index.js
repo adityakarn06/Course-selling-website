@@ -2,7 +2,12 @@ const express = require("express");
 const { userRouter } = require("./routes/user");
 const { courseRouter } = require("./routes/course");
 const { adminRouter } = require("./routes/admin");
+const {  } = require("./Models/db");
+const mongoose = require("mongoose");
+
 const app = express();
+
+mongoose.connect("link/course-selling-app");
 
 // routes
 app.use("/api/v1/user", userRouter);
