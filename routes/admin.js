@@ -22,7 +22,13 @@ adminRouter.post("/course", (req, res) => {
 
 adminRouter.put("/course", (req, res) => {
     res.json({
-        message: "Signin endpoint"
+        message: "Add course content"
+    })
+});
+
+adminRouter.delete("/course", (req, res) => {
+    res.json({
+        message: "delete a course"
     })
 });
 
