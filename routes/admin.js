@@ -14,25 +14,25 @@ adminRouter.post("/signin", (req, res) => {
     })
 });
 
-adminRouter.post("/", (req, res) => {
+adminRouter.post("/course", (req, res) => {
     res.json({
         message: "Create Course"
     })
 });
 
-adminRouter.put("/", (req, res) => {
+adminRouter.put("/course", (req, res) => {
     res.json({
         message: "Add course content"
     })
 });
 
-adminRouter.delete("/", (req, res) => {
+adminRouter.delete("/course", (req, res) => {
     res.json({
         message: "delete a course"
     })
 });
 
-adminRouter.get("/bulk", (req, res) => {
+adminRouter.get("/course/bulk", (req, res) => {
     res.json({
         message: "Signin endpoint"
     })
