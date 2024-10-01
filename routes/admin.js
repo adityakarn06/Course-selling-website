@@ -58,7 +58,7 @@ adminRouter.post("/signin", async (req, res) => {
 adminRouter.post("/course", adminAuth, async (req, res) => {
     const adminId = req.adminId;
 
-    const {title, description, price, imageURL} = req.body;
+    const { title, description, price, imageURL } = req.body;
 
     const course = await courseModel.create({
         title,
@@ -74,9 +74,31 @@ adminRouter.post("/course", adminAuth, async (req, res) => {
     })
 });
 
-adminRouter.put("/course", adminAuth, (req, res) => {
+adminRouter.put("/course", adminAuth, async (req, res) => {
+    const adminId = req.adminId;
+
+    const { title, description, price, imageURL, courseId } = req.body;
+
+    const course = await courseModel.updateOne({
+        //only update the course which fulfils these conditions (prevents from creator updating each others course)
+        _id: courseId,
+        creatorID: adminId
+    }, {
+        title,
+        description,
+        price,
+        imageURL
+    });
+
+    if (!course) {
+        res.json({
+            message: "this course was not created by you"
+        });
+    };
+
     res.json({
-        message: "Add course content"
+        message: "Course updated",
+        courseId: course._id
     })
 });
 
@@ -86,10 +108,24 @@ adminRouter.delete("/course", adminAuth, (req, res) => {
     })
 });
 
-adminRouter.get("/course/bulk", adminAuth, (req, res) => {
-    res.json({
-        message: "Signin endpoint"
+adminRouter.get("/course/bulk", adminAuth, async (req, res) => {
+    const adminId = req.adminId;
+
+    const courses = await courseModel.find({
+        creatorID: adminId
     })
+
+    if (courses) {
+        res.json({
+            message: "All courses sent",
+            courses
+        })
+    } else {
+        res.json({
+            message: "No course found"
+        })
+    }
+
 });
 
 module.exports = {
