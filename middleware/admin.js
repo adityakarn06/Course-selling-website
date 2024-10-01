@@ -11,7 +11,7 @@ function adminAuth(req, res, next) {
                     message: "Unauthorized"
                 });
             } else {
-                req.userId = decoded.id;
+                req.adminId = decoded.id;
                 next();
             }
         })
