@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const objectId = mongoose.objectId;
+const ObjectId = mongoose.ObjectId;
 
 // Schema
 const userSchema = new mongoose.Schema({
@@ -30,12 +30,12 @@ const courseSchema = new mongoose.Schema({
     description: String,
     price: Number,
     imageURL: String,
-    creatorID: objectId
+    // creatorID: objectId
 });
 
 const purchaseSchema = new mongoose.Schema({
-    userId: objectId,
-    courseID: objectId
+    userId: ObjectId,
+    courseID: ObjectId
 });
 
 // Models

@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { courseModel } = require("../models/db");
 
 const courseRouter = Router();
 

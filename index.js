@@ -1,11 +1,14 @@
 const express = require("express");
+const mongoose = require("mongoose");
+
 const { userRouter } = require("./routes/user");
 const { courseRouter } = require("./routes/course");
 const { adminRouter } = require("./routes/admin");
-const {  } = require("./Models/db");
-
 
 const app = express();
+
+// body-parser middleware
+app.use(express.json());
 
 // routes
 app.use("/api/v1/user", userRouter);
@@ -20,3 +23,5 @@ async function main() {
         console.log("Server started at PORT:3000");
     });
 }
+
+main();
