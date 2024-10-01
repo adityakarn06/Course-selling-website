@@ -17,3 +17,10 @@ ctrl+shift+l --> select multiple same words
   - Add a rate limiting middleware
   - Frontend in ejs (low pri)
   - Frontend in React
+
+- Put all your secrets in dotenv file
+- add dotenv to gitignore, we can put .env.example to github
+- npm install dotenv
+- put at the top of your file:
+    require('dotenv').config()
+- use by process.env.
