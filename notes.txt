@@ -1,5 +1,3 @@
-ctrl+shift+l --> select multiple same words
-
 - Initialize a new Node.js project
  - Add Express, jsonwebtoken, mongoose to it as a dependency 
  - Create index.js
@@ -9,6 +7,8 @@ ctrl+shift+l --> select multiple same words
  - Add a database (mongodb), use dotenv to store the database connection string
  - Add middlewares for user and admin auth
  - Complete the routes for user login, signup, purchase a course, see course (Extra points - Use express routing to better structure your routes)
+ - Use Zod for input validation
+ - Use bcrypt for password hashing
  - Create the frontend
 
 
@@ -18,7 +18,7 @@ ctrl+shift+l --> select multiple same words
   - Frontend in ejs (low pri)
   - Frontend in React
 
----- dotenv ---
+---- dotenv notes ---
 - Put all your secrets in dotenv file
 - add dotenv to gitignore, we can put .env.example to github
 - npm install dotenv
