@@ -1,5 +1,4 @@
 require('dotenv').config();
-console.log(process.env.MONGO_URL);
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -17,7 +16,6 @@ app.use(express.json());
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/course", courseRouter);
-// --> /api/v1 is just a convension... v1 is version 1... when we are in production, v1 stays running meanwhile v2 is created
 
 async function main() {
     await mongoose.connect(process.env.MONGO_URL);

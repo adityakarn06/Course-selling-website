@@ -18,9 +18,12 @@ ctrl+shift+l --> select multiple same words
   - Frontend in ejs (low pri)
   - Frontend in React
 
+---- dotenv ---
 - Put all your secrets in dotenv file
 - add dotenv to gitignore, we can put .env.example to github
 - npm install dotenv
 - put at the top of your file:
     require('dotenv').config()
 - use by process.env.
+
+// --> /api/v1 is just a convension... v1 is version 1... when we are in production, v1 stays running meanwhile v2 is created

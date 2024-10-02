@@ -1,9 +1,10 @@
 const { Router } = require("express");
 const adminRouter = Router();
-const { adminModel, courseModel } = require("../models/db");
+const { adminModel, courseModel } = require("../Models/db");
 const jwt = require("jsonwebtoken");
 const { JWT_ADMIN_SECRET } = require("../config")
-const { adminAuth } = require("../middleware/admin")
+const { adminAuth } = require("../middleware/admin");
+const bcrypt = require("bcrypt");
 
 
 adminRouter.post("/signup", async (req, res) => {
@@ -11,9 +12,11 @@ adminRouter.post("/signup", async (req, res) => {
 
     let errorThrown = false;
     try {
+        const hashedPassword = await bcrypt.hash(password, 5);
+
         await adminModel.create({
             email,
-            password,
+            password: hashedPassword,
             firstName,
             lastName
         });
@@ -36,23 +39,34 @@ adminRouter.post("/signin", async (req, res) => {
     const { email, password } = req.body;
 
     const admin = await adminModel.findOne({
-        email: email,
-        password: password
+        email: email
     });
 
-    if (admin) {
-        const token = jwt.sign({
-            id: admin._id.toString()
-        }, JWT_ADMIN_SECRET);
-
-        res.json({
-            token
-        });
-    } else {
-        res.json({
-            message: "Incorrect credentials"
+    if (!admin) {
+        res.status(403).json({
+            message: "Admin not found in db... Sign up or check email"
         });
     };
+
+    try {
+        const passwordMatch = await bcrypt.compare(password, admin.password);
+
+        if (passwordMatch) {
+            const token = jwt.sign({
+                id: admin._id.toString()
+            }, JWT_ADMIN_SECRET);
+
+            res.json({
+                token
+            });
+        } else {
+            res.json({
+                message: "Incorrect credentials"
+            });
+        };
+    } catch(e){
+        console.log("admin not found");
+    }
 });
 
 adminRouter.post("/course", adminAuth, async (req, res) => {

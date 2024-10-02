@@ -1,5 +1,5 @@
 const { Router } = require("express"); 
-const { userModel, purchaseModel, courseModel } = require("../models/db");
+const { userModel, purchaseModel, courseModel } = require("../Models/db");
 const jwt = require("jsonwebtoken");
 const userRouter = Router(); 
 const { JWT_USER_SECRET } = require("../config");
