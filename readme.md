@@ -1,1 +1,3 @@
 ## A course selling app
+-In Progress...
+-Basic Structure of backend done
