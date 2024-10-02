@@ -1,5 +1,5 @@
 const { Router } = require("express"); 
-const { userModel, courseModel, purchaseModel } = require("../models/db");
+const { userModel, purchaseModel, courseModel } = require("../models/db");
 const jwt = require("jsonwebtoken");
 const userRouter = Router(); 
 const { JWT_USER_SECRET } = require("../config");
@@ -62,10 +62,15 @@ userRouter.get("/purchases", userAuth, async (req, res) => {
 
     const purchases = await purchaseModel.find({
         userId
-    });
-    
+    }); //returns an array
+
+    const courseContent = await courseModel.find({
+        _id: { $in: purchases.map(x => x.courseId)}
+    }) // find whose id is in this array (converted purchases array of objects to array of strings with courseId)
+
     res.json({
-        purchases
+        purchases,
+        courseContent
     })
 });
 
