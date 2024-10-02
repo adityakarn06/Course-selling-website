@@ -94,18 +94,36 @@ adminRouter.put("/course", adminAuth, async (req, res) => {
         res.json({
             message: "this course was not created by you"
         });
+    } else {
+        res.json({
+            message: "Course updated",
+            courseId: course._id
+        })
     };
 
-    res.json({
-        message: "Course updated",
-        courseId: course._id
-    })
 });
 
-adminRouter.delete("/course", adminAuth, (req, res) => {
-    res.json({
-        message: "delete a course"
+adminRouter.delete("/course", adminAuth, async (req, res) => {
+    const adminId = req.adminId;
+
+    const { courseId } = req.body;
+
+    const deletion = await courseModel.findOneAndDelete({
+        _id: courseId,
+        creatorID: adminId
     })
+
+    if (deletion) {
+        res.json({
+            message: "Deleted a course",
+            courseId
+        });
+    } else {
+        res.json({
+            message: " You are not authorized to delete this course"
+        });
+    };
+
 });
 
 adminRouter.get("/course/bulk", adminAuth, async (req, res) => {
